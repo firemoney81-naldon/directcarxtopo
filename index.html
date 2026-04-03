@@ -1,23 +1,679 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "액티언 유지비 컨설팅 및 정보 제공",
+    "provider": {
+      "@type": "Organization",
+      "name": "카 가이드 전문가 그룹",
+      "url": "https://yourdomain.com"
+    },
+    "areaServed": "대한민국",
+    "description": "쌍용 액티언 및 액티언 스포츠 모델의 2026년 기준 유지보수 비용, 보험료, 세금, 소모품 교체 주기 등 상세 정보를 제공합니다. 합리적인 차량 관리 방법을 위한 컨설팅 서비스.",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "액티언 유지비 상세 분석 항목",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Product",
+            "name": "액티언 보험료 분석"
+          },
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "price": "0",
+            "priceCurrency": "KRW",
+            "description": "개인 맞춤형 보험료 견적 비교"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Product",
+            "name": "액티언 소모품 교체 비용 분석"
+          },
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "price": "0",
+            "priceCurrency": "KRW",
+            "description": "주요 소모품별 예상 교체 비용 안내"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Product",
+            "name": "액티언 모델별 연비 분석"
+          },
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "price": "0",
+            "priceCurrency": "KRW",
+            "description": "액티언 스포츠, C-SUV 모델별 실연비 비교"
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- Custom CSS for a soft and modern aesthetic -->
+  <style>
+    body {
+      font-family: "Noto Sans KR", sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.8;
+      background-color: #f5f8fa; /* Light, soft background */
+      color: #333;
+    }
+    header {
+      background-color: #4A90E2; /* Primary blue, soft shade */
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    nav a:hover {
+      color: #FFC300; /* Accent yellow */
+      transform: translateY(-2px);
+    }
+    main {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      background-color: white;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      border-radius: 12px;
+    }
+    section {
+      padding: 2rem 0;
+      border-bottom: 1px dashed #e0e0e0;
+    }
+    section:last-child {
+      border-bottom: none;
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.4;
+      margin-bottom: 0.5rem;
+    }
+    h2 {
+      color: #2c6dae; /* Secondary blue */
+      font-size: 2rem;
+      font-weight: 700;
+      margin-top: 1.5rem;
+      border-bottom: 3px solid #f0f0f0;
+      padding-bottom: 0.5rem;
+    }
+    h3 {
+      color: #4A90E2;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+    p {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      background-color: #fafafa;
+    }
+    th, td {
+      padding: 1rem;
+      border: 1px solid #e0e0e0;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+    th {
+      background-color: #f0f6fc; /* Light blue table header */
+      color: #2c6dae;
+      font-weight: 700;
+    }
+    tr:nth-child(even) {
+      background-color: #fcfcfc;
+    }
+
+    /* Call to Action button */
+    .cta-button {
+      display: inline-block;
+      background-color: #FF9F40; /* Accent orange */
+      color: white;
+      font-weight: 700;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      margin: 1.5rem 0;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(255, 159, 64, 0.3);
+    }
+    .cta-button:hover {
+      background-color: #E68D39;
+      box-shadow: 0 6px 15px rgba(255, 159, 64, 0.4);
+    }
+
+    /* FAQ accordion styles */
+    .accordion dl dt {
+      background-color: #f8f8f8;
+      padding: 1rem 1.5rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      font-weight: 700;
+      color: #4A90E2;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .accordion dl dt::after {
+      content: '+';
+      position: absolute;
+      right: 1.5rem;
+      font-size: 1.2rem;
+      line-height: 1;
+      transition: transform 0.3s ease;
+    }
+    .accordion dl dt.active {
+      background-color: #eaf3ff;
+      border-color: #4A90E2;
+      color: #2c6dae;
+    }
+    .accordion dl dt.active::after {
+      content: '-';
+      transform: rotate(0deg);
+    }
+    .accordion dl dd {
+      margin-left: 0;
+      margin-bottom: 1rem;
+      padding: 1rem 1.5rem;
+      background-color: white;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      border-top: none;
+      display: none;
+    }
+    .accordion dl dt.active + dd {
+      display: block;
+    }
+
+    /* Keyword tags */
+    .keyword-tags {
+      margin: 1.5rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .keyword-tags a {
+      background-color: #eaf3ff;
+      color: #4A90E2;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .keyword-tags a:hover {
+      background-color: #d1e2f7;
+      color: #2c6dae;
+    }
+
+    /* User interaction components (input fields) */
+    .calculator-section {
+      background-color: #f8fcfd;
+      padding: 2rem;
+      border-radius: 10px;
+      border: 1px solid #e0e0e0;
+      margin-top: 2rem;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #555;
+    }
+    .form-group input, .form-group select {
+      width: calc(100% - 2rem);
+      padding: 0.8rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    .form-group button {
+      background-color: #4A90E2;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    .form-group button:hover {
+      background-color: #387acb;
+    }
+    .result-box {
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      border: 2px solid #FF9F40;
+      border-radius: 8px;
+      background-color: #fffaf5;
+      font-weight: 700;
+      color: #333;
+    }
+
+    /* Image section */
+    .image-container {
+      margin: 2rem 0;
+      text-align: center;
+    }
+    .image-container img {
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Footer styles */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #777;
+      background-color: #f0f0f0;
+      margin-top: 2rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      main {
+        padding: 0 1rem;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 1.7rem;
+      }
+      nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>쌍용 액티언 유지비 완벽 분석: 2026년 오너 예상 비용 가이드</h1>
     <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
+      <ul>
+        <li><a href="#intro">액티언 유지비 개요</a></li>
+        <li><a href="#cost-breakdown">유지비 항목별 분석</a></li>
+        <li><a href="#models-comparison">모델별 비교 (스포츠 vs C-SUV)</a></li>
+        <li><a href="#calculator">유지비 계산기</a></li>
+        <li><a href="#repair-tips">수리비 절약 팁</a></li>
+        <li><a href="#faq">자주 묻는 질문</a></li>
+      </ul>
     </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+  </header>
+
+  <main>
+    <section id="intro">
+      <h2>액티언 유지비, 과연 합리적인 선택일까?</h2>
+      <p>쌍용자동차의 대표적인 SUV 라인업이었던 액티언과 액티언 스포츠는 특유의 개성적인 디자인과 뛰어난 가성비로 중고차 시장에서 여전히 많은 사랑을 받고 있습니다. 하지만 중고차 구매를 고려하는 예비 오너라면 '유지비'에 대한 고민을 빼놓을 수 없습니다. 특히 액티언의 연식(2005년~2011년 생산)을 고려할 때, 예상치 못한 수리 비용이 발생할 수 있기 때문입니다. 2026년 기준으로 액티언을 운용할 때 필요한 월평균 비용과 연간 비용을 상세하게 분석해 드립니다.</p>
+      <div class="image-container">
+        <!-- Pexels.com에서 차량 유지보수 관련 이미지 사용 (예시) -->
+        <img src="https://images.pexels.com/photos/1572074/pexels-photo-1572074.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="자동차 정비 중인 모습">
+      </div>
+      <p>본 가이드에서는 액티언 오너들이 궁금해하는 핵심 질문들을 다룹니다. 액티언 유지비 평균은 얼마일까요? 보험료, 자동차세, 유류비, 소모품 교체 비용 등 각 항목별로 자세히 살펴보고, 액티언 스포츠와 액티언 C-SUV 모델 간의 유지비 차이점도 명확하게 비교해 드립니다. 특히 디젤 차량 특성상 발생할 수 있는 고질병 및 수리 비용에 대한 현실적인 견적을 제시하여, 중고차 구매 전 정확한 정보를 얻도록 돕겠습니다.</p>
+      <h3>액티언 유지비에 영향을 미치는 주요 요인</h3>
+      <ul>
+        <li><strong>연식 및 주행거리:</strong> 연식이 오래될수록 소모품 교체 주기와 수리 필요성이 증가합니다.</li>
+        <li><strong>모델 종류:</strong> 액티언 스포츠(화물차로 분류되어 세금 저렴)와 C-SUV(승용차)의 유지비 구조가 다릅니다.</li>
+        <li><strong>운전 습관 및 주행 환경:</strong> 시내 주행 위주 운전자는 연비가 낮아지고, 주행거리가 길면 소모품 교체 빈도가 높아집니다.</li>
+        <li><strong>정비 방식:</strong> 순정 부품 사용 여부, 전문 업체 vs 일반 공업사 선택에 따라 비용이 달라집니다.</li>
+      </ul>
+    </section>
+
+    <section id="cost-breakdown">
+      <h2>액티언 유지비 항목별 상세 분석 (2026년 기준)</h2>
+      <p>액티언 유지비의 주요 항목은 크게 네 가지로 나뉩니다. 자동차세, 보험료, 유류비, 그리고 정비/수리 비용입니다. 특히 정비 비용은 연식에 따라 변동 폭이 크므로, 이 부분을 중점적으로 살펴보겠습니다.</p>
+
+      <h3>1. 유류비 (연비 및 연료비) 분석</h3>
+      <p>액티언은 대부분 디젤 엔진을 탑재하고 있습니다. 공식 복합 연비는 모델에 따라 11~14km/l 수준이지만, 실제 오너들의 내돈내산 후기나 실연비 커뮤니티(예: 디시인사이드 자동차 갤러리) 데이터를 종합하면 시내 주행에서는 8~10km/l, 고속도로 주행에서는 12~15km/l 내외로 나타납니다.</p>
+      <div class="calculator-section">
+          <h4>유류비 계산기 (2026년 예상 기준)</h4>
+          <div class="form-group">
+              <label for="distance">월평균 주행거리 (km):</label>
+              <input type="number" id="distance" value="1500" placeholder="1500">
+          </div>
+          <div class="form-group">
+              <label for="fuelprice">경유 리터당 가격 (원, 2026년 예상):</label>
+              <input type="number" id="fuelprice" value="1600" placeholder="1600">
+          </div>
+          <div class="form-group">
+              <label for="efficiency">액티언 실연비 (km/l):</label>
+              <input type="number" id="efficiency" value="10" placeholder="10">
+          </div>
+          <div class="form-group">
+              <button onclick="calculateFuelCost()">월 유류비 계산하기</button>
+          </div>
+          <div id="fuelResult" class="result-box" style="display: none;"></div>
+      </div>
+      <p><strong>주요 연비 관련 키워드:</strong> 연비 향상 팁, 연료 효율 높이는 방법, 액티언 연비 단점, 유류비 절감, 경유 가격 추이.</p>
+
+      <h3>2. 자동차세 (모델별 차이점)</h3>
+      <p>액티언 유지비에서 가장 큰 장점 중 하나는 액티언 스포츠의 세금 혜택입니다. 액티언 C-SUV 모델과 액티언 스포츠 모델의 자동차세 차이를 비교해 보겠습니다.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>액티언 C-SUV (2000cc 기준)</th>
+            <th>액티언 스포츠 (2000cc 기준)</th>
+            <th>비고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>자동차세 부과 기준</td>
+            <td>승용차 (배기량 기준)</td>
+            <td>화물차 (정액 기준)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>연간 자동차세 (약식 계산)</td>
+            <td>약 52만원 (10년 이상 감면 후 약 26만원)</td>
+            <td>약 28,500원</td>
+            <td>화물차는 연식 감면 없음</td>
+          </tr>
+          <tr>
+            <td>세금 측면 장점</td>
+            <td>10년 이상 노후차량은 50% 감면</td>
+            <td>매우 저렴한 고정세금</td>
+            <td>액티언 스포츠가 세금 면에서 압도적으로 저렴합니다.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>액티언 스포츠의 유지비가 C-SUV보다 훨씬 저렴한 핵심 이유입니다. 연간 20~30만원 이상의 절약 효과가 있습니다.</p>
+
+      <h3>3. 보험료 (개인 맞춤 견적)</h3>
+      <p>액티언은 연식이 오래된 만큼 자차 보험 가입이 제한되거나 보험료가 높게 책정될 수 있습니다. 특히 2026년 기준 20년 가까이 된 차량이므로, 보험사마다 견적 차이가 크고, 운전자의 나이와 경력에 따라 비용이 천차만별입니다.</p>
+      <div class="calculator-section">
+        <h4>보험료 예상 견적 입력란</h4>
+        <div class="form-group">
+            <label for="age">운전자 나이 (만):</label>
+            <input type="number" id="age" value="30" placeholder="만 30세">
+        </div>
+        <div class="form-group">
+            <label for="history">운전 경력 (년):</label>
+            <input type="number" id="history" value="5" placeholder="5년">
+        </div>
+        <div class="form-group">
+            <label for="insurancetype">보험 가입 유형:</label>
+            <select id="insurancetype">
+                <option value="full">종합보험 (자차 포함)</option>
+                <option value="liability">책임보험 (의무보험)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button onclick="calculateInsuranceCost()">예상 보험료 견적 요청</button>
+        </div>
+        <p class="result-box">정확한 견적은 보험사 비교 사이트를 통해 확인 가능하며, 대략적인 평균 금액은 30대 운전자 기준 책임보험만 가입 시 50만원대, 자차 포함 종합보험 가입 시 70~100만원대로 예상됩니다.</p>
+        <p><strong>주요 보험 키워드:</strong> 액티언 보험료 저렴한곳, 신규 가입 혜택, 다이렉트 보험 비교, 보험료 할인 조건, 자차보험 가입 여부, 견적 비교 사이트 추천.</p>
+      </div>
+
+      <h3>4. 수리비 및 소모품 교체 주기</h3>
+      <p>액티언의 유지비 중 가장 예측하기 어려운 항목입니다. 연식이 오래되어 예기치 않은 수리가 발생할 가능성이 높습니다. 쌍용차 전문 정비업체 내돈내산 후기들을 바탕으로 주요 소모품 교체 주기와 예상 견적을 정리했습니다.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>교체 주기 (권장)</th>
+            <th>평균 예상 비용 (원)</th>
+            <th>비고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>엔진 오일 및 필터</td>
+            <td>10,000 km 또는 1년</td>
+            <td>70,000 ~ 100,000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>미션 오일</td>
+            <td>40,000 km 또는 2년</td>
+            <td>150,000 ~ 250,000</td>
+            <td>주행 환경에 따라 상이</td>
+          </tr>
+          <tr>
+            <td>브레이크 패드 (앞)</td>
+            <td>30,000 ~ 50,000 km</td>
+            <td>100,000 ~ 150,000</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>타이어 교체</td>
+            <td>50,000 ~ 80,000 km</td>
+            <td>400,000 ~ 600,000 (4짝 기준)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>DPF 클리닝/수리</td>
+            <td>수시 점검 (누적 주행거리 10만 km 이상 시)</td>
+            <td>150,000 ~ 1,000,000 이상</td>
+            <td>디젤차 고질병, 수리비 폭탄 주의</td>
+          </tr>
+        </tbody>
+      </table>
+      <p><strong>액티언의 고질병:</strong> 액티언 디젤 모델은 인젝터 고착, DPF 문제, 터보차저 문제, 미션 슬립 등 고질적인 디젤 엔진 이슈가 있습니다. 중고차 구매 전 반드시 전문 업체에서 차량 점검을 받아야 합니다. 수리비가 예상 금액보다 훨씬 많이 나올 수 있습니다.</p>
+    </section>
+
+    <section id="models-comparison">
+      <h2>액티언 스포츠 vs 액티언 C-SUV 모델별 장단점 및 유지비 차이</h2>
+      <p>액티언 유지비를 논할 때, 두 가지 주요 모델을 빼놓을 수 없습니다. 액티언 스포츠는 픽업트럭의 형태를 띠고 있으며, 액티언 C-SUV는 일반적인 SUV 형태입니다. 두 모델의 유지비 차이는 '세금' 항목에서 극명하게 나타납니다.</p>
+      <dl>
+        <dt tabindex="0" aria-expanded="false" class="accordion-dt">액티언 스포츠 유지비 장점과 단점</dt>
+        <dd><strong>장점:</strong>
+          <ul>
+            <li><strong>압도적인 세금 절감:</strong> 연간 자동차세가 28,500원으로 매우 저렴합니다. 이는 액티언 스포츠를 선택하는 가장 큰 이유입니다.</li>
+            <li><strong>넉넉한 적재 공간:</strong> 화물차 특유의 적재함으로 레저 활동이나 화물 운송에 유리합니다.</li>
+          </ul>
+          <strong>단점:</strong>
+          <ul>
+            <li><strong>승차감:</strong> C-SUV에 비해 승차감이 다소 떨어질 수 있습니다.</li>
+            <li><strong>보험료:</strong> 화물차로 분류되어 보험료가 C-SUV보다 다소 높게 책정될 수 있습니다.</li>
+          </ul>
+        </dd>
+        <dt tabindex="0" aria-expanded="false" class="accordion-dt">액티언 C-SUV 유지비 장점과 단점</dt>
+        <dd><strong>장점:</strong>
+          <ul>
+            <li><strong>승차감:</strong> 일반 승용 SUV로서 더 편안한 승차감을 제공합니다.</li>
+            <li><strong>보험료:</strong> 개인 운전자 보험료가 스포츠 모델보다 저렴한 경우가 많습니다.</li>
+          </ul>
+          <strong>단점:</strong>
+          <ul>
+            <li><strong>자동차세:</strong> 연간 20~30만원대의 세금이 발생합니다.</li>
+            <li><strong>적재 공간 제약:</strong> 스포츠 모델 대비 적재 공간이 적습니다.</li>
+          </ul>
+        </dd>
+      </dl>
+      <p><strong>결론:</strong> 저렴한 유지비를 최우선으로 생각한다면 액티언 스포츠가 압도적인 우위를 점하며, 세금 외의 나머지 항목(연료, 수리비)은 두 모델이 크게 다르지 않습니다. 액티언 스포츠의 경우, 픽업트럭 특성상 공영 주차장 할인 혜택 등도 추가적으로 누릴 수 있습니다.</p>
+    </section>
+
+    <section id="repair-tips">
+      <h2>액티언 수리비 절감 및 관리 팁</h2>
+      <p>연식이 오래된 액티언을 저렴하게 유지하기 위해서는 '예방 정비'가 가장 중요합니다. 고장 나기 전에 미리 소모품을 교체하는 것이 수리비 폭탄을 막는 핵심입니다. 또한, 부품 조달 방법과 정비소 선택도 중요합니다.</p>
+      <ul>
+        <li><strong>부품 선택:</strong> 액티언은 단종된 모델이므로 순정 부품 가격이 높을 수 있습니다. 애프터마켓 부품을 활용하거나, 중고 부품을 활용하는 것도 비용 절감의 방법입니다. 다만, 중요 부품(엔진, 미션 관련)은 신품을 사용하는 것이 좋습니다.</li>
+        <li><strong>전문 정비 업체 활용:</strong> 쌍용차 전문 정비업체(혹은 디젤 전문 업체)를 방문하여 정확한 진단을 받는 것이 중요합니다. 일반 공업사에서는 액티언의 고질병을 정확히 진단하지 못할 수 있습니다.</li>
+        <li><strong>온라인 커뮤니티 활용:</strong> 네이버 카페, 디시인사이드 액티언 게시판, 유튜브 채널 등을 통해 내돈내산 후기, 장단점, 수리 전문 업체를 추천받고, 견적을 미리 비교해 보세요.</li>
+        <li><strong>보험사 비교:</strong> 보험 가입 시 신규 가입 혜택, 할인 조건 등을 꼼꼼히 따져보고 여러 보험사의 견적을 비교하는 것이 좋습니다.</li>
+      </ul>
+
+      <p><strong>액티언 유지비 관련 검색 키워드:</strong> 액티언 고질병, DPF 수리 비용, 인젝터 클리닝, 미션 오일 교체 주기, 액티언 전문 정비소 추천, 저렴한 수리 업체, 부품 가격 비교.</p>
+      <div class="keyword-tags" aria-label="연관 키워드 태그">
+        <a href="#cost-breakdown">액티언 유지비 얼마</a>
+        <a href="#calculator">유지비 예상 견적</a>
+        <a href="#models-comparison">액티언 스포츠 장단점</a>
+        <a href="#repair-tips">액티언 수리비 싼곳</a>
+        <a href="#repair-tips">액티언 DPF 고장</a>
+        <a href="#">액티언 중고차 가격</a>
+        <a href="#">액티언 연식별 차이점</a>
+        <a href="#">액티언 디젤차 고질병</a>
+        <a href="#">액티언 부품 수급</a>
+        <a href="#">액티언 보험료 비교</a>
+        <a href="#">액티언 가입 혜택</a>
+        <a href="#">액티언 전문 업체</a>
+        <a href="#">액티언 내돈내산 후기</a>
+        <a href="#">액티언 견적 문의</a>
+        <a href="#">액티언 할인 이벤트</a>
+        <a href="#">액티언 신규 가입</a>
+        <a href="#">액티언 지원금</a>
+        <a href="#">액티언 상품권</a>
+        <a href="#">네이버 액티언 카페</a>
+        <a href="#">구글 액티언 검색</a>
+        <a href="#">유튜브 액티언 리뷰</a>
+        <a href="#">Gemini 액티언 분석</a>
+        <a href="#">ChatGPT 액티언 정보</a>
+        <a href="#">AI 차량 관리</a>
+      </div>
+    </section>
+
+    <section id="faq" class="accordion">
+      <h2>자주 묻는 질문 (FAQ)</h2>
+      <dl>
+        <dt tabindex="0" aria-expanded="false" class="accordion-dt">액티언 중고차 구매 시 주의해야 할 점이 있나요?</dt>
+        <dd>액티언은 연식이 오래된 만큼 엔진, 미션, 하체 부식 여부를 꼼꼼히 확인해야 합니다. 특히 디젤 차량 특성상 인젝터 상태, DPF 작동 여부, 터보차저 이상 유무를 반드시 점검해야 합니다. 전문가 동행 또는 보험사 성능 점검을 받은 차량을 선택하는 것이 안전합니다.</dd>
+        <dt tabindex="0" aria-expanded="false" class="accordion-dt">액티언 스포츠는 화물차로 분류되어 어떤 장단점이 있나요?</dt>
+        <dd>가장 큰 장점은 압도적으로 저렴한 자동차세(연 28,500원)입니다. 하지만 화물차로 분류되므로 승용차 대비 보험료가 다소 높게 책정될 수 있고, 픽업트럭의 짐칸에 덮개가 없을 경우 세차 등에 불편함을 느낄 수 있습니다. 또한 공영주차장 할인 혜택 등도 있습니다.</dd>
+        <dt tabindex="0" aria-expanded="false" class="accordion-dt">액티언 수리비를 절감할 수 있는 팁이 있나요?</dt>
+        <dd>예방 정비가 가장 중요하며, 소모품은 저렴한 애프터마켓 제품을 활용할 수 있습니다. 하지만 핵심 부품(DPF, 인젝터)은 정품을 사용하고, 정비소는 쌍용차 전문 업체나 디젤 전문 업체를 선택하는 것이 좋습니다. 여러 곳에서 견적을 비교해보고, 온라인 커뮤니티에서 정보를 얻는 것도 좋은 방법입니다.</dd>
+      </dl>
+    </section>
+
+    <section id="external-links">
+        <h2>액티언 유지비 관련 신뢰성 있는 정보 출처</h2>
+        <p>액티언 유지보수 및 차량 정보에 대한 신뢰성 있는 데이터를 제공하는 외부 사이트입니다.</p>
+        <ul>
+            <li><a href="https://namu.wiki/w/%EC%8C%8D%EC%9A%A9%20%EC%95%A1%ED%8B%B0%EC%96%B8" target="_blank">나무위키 - 쌍용 액티언</a> (차량의 역사 및 개요 정보)</li>
+            <li><a href="https://www.car.go.kr/index.jsp" target="_blank">자동차민원 대국민포털</a> (자동차 등록원부, 검사 정보 확인)</li>
+            <li><a href="https://www.insvalley.com" target="_blank">보험료 비교 사이트</a> (다이렉트 보험 견적 비교)</li>
+            <li><a href="https://www.ssangyong.com" target="_blank">KG 모빌리티(구 쌍용자동차) 공식 홈페이지</a> (정비 서비스 및 부품 정보)</li>
+            <li><a href="https://www.gov.kr/portal/main" target="_blank">대한민국 정부24</a> (자동차세 조회 및 납부 정보)</li>
+        </ul>
+    </section>
+
+    <section id="contact-form">
+      <h2>액티언 유지비 상담 및 견적 문의</h2>
+      <p>액티언 중고차 구매 전 정확한 유지비 견적을 받고 싶으신가요? 아래 문의 양식을 통해 궁금증을 해결해 보세요. AI 에이전트 Gemini나 ChatGPT를 활용한 분석 정보와 전문 컨설팅을 제공해 드립니다. 문의 주시면 액티언의 장단점과 함께 합리적인 관리 방안을 제시해 드립니다.</p>
+      <div class="calculator-section">
+        <div class="form-group">
+            <label for="name">이름:</label>
+            <input type="text" id="name" placeholder="이름을 입력하세요">
+        </div>
+        <div class="form-group">
+            <label for="phone">연락처:</label>
+            <input type="tel" id="phone" placeholder="전화번호를 입력하세요">
+        </div>
+        <div class="form-group">
+            <label for="modeltype">모델 유형:</label>
+            <select id="modeltype">
+                <option value="actyon-csuv">액티언 C-SUV</option>
+                <option value="actyon-sports">액티언 스포츠</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="question">궁금한 점 (자세히 적어주시면 정확한 상담이 가능합니다):</label>
+            <textarea id="question" rows="5" placeholder="궁금한 유지비 항목이나 고질병 관련 문의사항을 입력해 주세요. (예: 2007년식 액티언 스포츠 DPF 수리비 예상 견적)"></textarea>
+        </div>
+        <div class="form-group">
+            <button onclick="submitInquiry()">상담 요청하기</button>
+        </div>
+      </div>
+      <a href="mailto:contact@yourdomain.com" class="cta-button" aria-label="이메일로 문의하기">이메일로 문의하기</a>
+    </section>
+  </main>
+
+  <script>
+    // FAQ 아코디언 기능 (접기/펼치기)
+    document.querySelectorAll('.accordion dl dt').forEach((dt) => {
+      dt.addEventListener('click', () => {
+        const expanded = dt.getAttribute('aria-expanded') === 'true';
+        document.querySelectorAll('.accordion dl dt').forEach(item => {
+          item.classList.remove('active');
+          item.setAttribute('aria-expanded', 'false');
+          item.nextElementSibling.style.display = 'none';
+        });
+        if (!expanded) {
+          dt.classList.add('active');
+          dt.setAttribute('aria-expanded', 'true');
+          dt.nextElementSibling.style.display = 'block';
+        }
+      });
+      dt.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          dt.click();
+        }
+      });
+    });
+
+    // Simple calculator logic (for demonstration purposes)
+    function calculateFuelCost() {
+      const distance = parseFloat(document.getElementById('distance').value);
+      const fuelprice = parseFloat(document.getElementById('fuelprice').value);
+      const efficiency = parseFloat(document.getElementById('efficiency').value);
+
+      if (distance > 0 && fuelprice > 0 && efficiency > 0) {
+        const monthlyCost = (distance / efficiency) * fuelprice;
+        document.getElementById('fuelResult').innerHTML = `<strong>월 예상 유류비: 약 ${monthlyCost.toLocaleString('ko-KR')}원</strong> (주행거리 ${distance}km 기준)`;
+        document.getElementById('fuelResult').style.display = 'block';
+      } else {
+        document.getElementById('fuelResult').innerHTML = `모든 항목을 올바르게 입력해 주세요.`;
+        document.getElementById('fuelResult').style.display = 'block';
+      }
+    }
+
+    function calculateInsuranceCost() {
+      // Dummy function as actual calculation requires complex data.
+      alert('보험료 견적 요청이 접수되었습니다. 곧 전문가가 연락드리겠습니다.');
+    }
+
+    function submitInquiry() {
+        // Dummy function for form submission.
+        alert('문의가 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.');
+    }
+  </script>
+  
